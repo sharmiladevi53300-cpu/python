@@ -1,0 +1,129 @@
+
+# PATIENT REGISTRATION
+
+patients = {}
+
+def register_patient():
+    patient_id = int(input("enter a patient id:"))
+    name = input("enter patient name:")
+    age = int(input("enter age:"))
+    gender = input("enter a gender:")
+
+    patients[patient_id] = {
+        "name": name,
+        "age": age,
+        "gender": gender,
+        "history": []
+    }
+
+    print("patient registered successfully")
+
+
+# DOCTOR DATABASE
+
+doctors = {
+    101: {"name": "dr.kumar", "specialization": "cardiology"},
+    102: {"name": "dr.arun", "specialization": "neurology"},
+    103: {"name": "dr.divya", "specialization": "orthopedic"},
+    104: {"name": "dr.prakash", "specialization": "physiotherapy"}
+}
+
+def show_doctors():
+    print("doctors available")
+    for doctor_id, details in doctors.items():
+        print(
+            doctor_id,
+            details["name"],
+            "-",
+            details["specialization"]
+        )
+
+
+# APPOINTMENT
+
+appointment = []
+
+def book_appointment():
+    patient_id = int(input("enter patient id"))
+
+    if patient_id in patients:
+        show_doctors()
+        doctor_id = int(input("enter a doctor id:"))
+
+        appointment.append({
+            "patient": patient_id,
+            "doctor_id": doctor_id
+        })
+
+        print("appointment booked successfully")
+
+    else:
+        print("patient not found")
+
+
+# GENERATE BILL
+
+def generate_bill():
+    patient_id = int(input("enter patient_id:"))
+
+    if patient_id in patients:
+        consultation_fees = 500
+        treatment_fees = int(input("enter fees:"))
+        total_bill = consultation_fees + treatment_fees
+
+        print("consultation_fees:", consultation_fees)
+        print("treatment_fees:", treatment_fees)
+        print("total bill:", total_bill)
+
+    else:
+        print("patient_id not found")
+
+
+# PATIENT MEDICAL HISTORY
+
+def add_medical_history():
+    patient_id = int(input("enter a patient_id:"))
+
+    if patient_id in patients:
+        history = input("enter medical history")
+        patients[patient_id]["history"].append(history)
+
+        print("medical history added successfully")
+
+    else:
+        print("patient not found")
+
+
+# MAIN MENU
+
+while True:
+    print("1.registration")
+    print("2.doctor database")
+    print("3.appointment")
+    print("4.generate bill")
+    print("5.patient medical history")
+    print("6.Exit")
+
+    choice = int(input("enter your choice:"))
+
+    if choice == 1:
+        register_patient()
+
+    elif choice == 2:
+        show_doctors()
+
+    elif choice == 3:
+        book_appointment()
+
+    elif choice == 4:
+        generate_bill()
+
+    elif choice == 5:
+        add_medical_history()
+
+    elif choice == 6:
+        print("Thank You For Using Hospital Management System.")
+        break
+
+    else:
+        print("invalid choice")
